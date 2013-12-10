@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 public class ViewerActivity extends Activity {
@@ -42,11 +43,17 @@ public class ViewerActivity extends Activity {
 		} catch (IOException e) {
 			Log.e("V_A","Input-Output Exception!");
 		}	
-		
-		WebView webview = new WebView(this);
-		
-		setContentView(webview);
 
+	    fileContent.append("");
+		WebView webview = (WebView)findViewById(R.id.webView1);
+		
+		webview.getSettings().setBuiltInZoomControls(true);
+		
+		WebSettings settings = webview.getSettings();
+		settings.setSupportZoom(true);
+		settings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+		settings.setBuiltInZoomControls(true);
+		
 		webview.loadData(fileContent.toString(), "image/svg+xml", "UTF8");
 		
 	}
