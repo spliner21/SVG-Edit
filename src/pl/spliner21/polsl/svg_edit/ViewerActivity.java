@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 
 public class ViewerActivity extends Activity {
 
@@ -44,16 +45,18 @@ public class ViewerActivity extends Activity {
 			Log.e("V_A","Input-Output Exception!");
 		}	
 
-	    fileContent.append("");
-		WebView webview = (WebView)findViewById(R.id.webView1);
 		
-		webview.getSettings().setBuiltInZoomControls(true);
+		FrameLayout svgLayout = (FrameLayout)findViewById(R.id.svgViewer);
+		WebView webview = new WebView(this);
+		webview.setLayoutParams(svgLayout.getLayoutParams());
+				
+		svgLayout.addView(webview);
 		
 		WebSettings settings = webview.getSettings();
 		settings.setSupportZoom(true);
 		settings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
 		settings.setBuiltInZoomControls(true);
-		
+				
 		webview.loadData(fileContent.toString(), "image/svg+xml", "UTF8");
 		
 	}
