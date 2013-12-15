@@ -9,11 +9,21 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
 	static final int PICKFILE_RESULT_CODE = 100;
 	static final int VIEWER_CODE = 110;
+	static final int OPTIONS_RESULT_CODE = 120;
+	
+	// KODY SILNIKÓW 
+	static final int WEBKIT_CODE = 300;
+	static final int SVG_ANDROID = 310;
+	static final int SVG_ANDROID_2 = 320;
+	static final int ANDROID_SVG = 330;
+	
+	int engine = WEBKIT_CODE;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +32,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		Button openBtn = (Button)findViewById(R.id.button_open);
+		Button optbBtn = (Button)findViewById(R.id.button_options);
 		Button quitBtn = (Button)findViewById(R.id.button_close);
 		
 		// Otwieranie pliku
@@ -39,7 +50,18 @@ public class MainActivity extends Activity {
 				
 			}
 		});
-		
+
+		// Ekran opcji
+		optbBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent optionsIntent = new Intent(getApplicationContext(),OptionsActivity.class);
+				optionsIntent.putExtra("engine", engine);
+	            startActivityForResult(optionsIntent, OPTIONS_RESULT_CODE);
+				
+			}
+		});
 
     	// Obs³uga przycisku wyjœcia
     	quitBtn.setOnClickListener(new View.OnClickListener() {
@@ -63,9 +85,19 @@ public class MainActivity extends Activity {
 		
 					Intent viewIntent = new Intent(getApplicationContext(),ViewerActivity.class);
 					viewIntent.putExtra("fileuri",FilePath);
+					viewIntent.putExtra("engine",engine);
 					startActivityForResult(viewIntent,VIEWER_CODE);
 		
 		        }
+		        break;
+			case OPTIONS_RESULT_CODE:
+			    if (resultCode == RESULT_OK) {
+			        engine = data.getIntExtra("engine", engine);	
+			        Toast.makeText(getApplicationContext(), "Wybrany engine: "+String.valueOf(engine), Toast.LENGTH_SHORT).show();
+			    }
+			    break;
+			default:
+			    break;
 	    }
 	}
 	

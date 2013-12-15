@@ -25,6 +25,7 @@
         <activity android:name="ViewerActivity" android:theme="@style/AppTheme">
             
         </activity>
+        <activity android:name="OptionsActivity"></activity>
     </application>
 
 </manifest>

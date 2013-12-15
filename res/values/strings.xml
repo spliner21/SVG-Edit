@@ -8,5 +8,13 @@
     <string name="open_file">Otwórz plik</string>
     <string name="options">Opcje</string>
     <string name="close">Zakończ</string>
+    <string name="save">Zapisz</string>
+    
+    
+    <string name="choose_engine">Wybierz silnik renderowania SVG:</string>
+    <string name="webkit">WebKit (WebView)</string>
+    <string name="svgand">SVG-Android</string>
+    <string name="svgand2">SVG-Android 2 (enhanced)</string>
+    <string name="andsvg">AndroidSVG</string>
 
 </resources>
