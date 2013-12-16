@@ -4,16 +4,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import com.larvalabs.svgandroid.SVG;
-import com.larvalabs.svgandroid.SVG1;
-import com.larvalabs.svgandroid.SVG1ParseException;
-import com.larvalabs.svgandroid.SVG1Parser;
-import com.larvalabs.svgandroid.SVGParseException;
-import com.larvalabs.svgandroid.SVGParser;
+import com.larvalabs.svgandroid.*;
+import com.caverock.androidsvg.*;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -39,13 +36,13 @@ public class ViewerActivity extends Activity {
 	
 		Intent intent = getIntent();
 		
-		String fileUri = intent.getStringExtra("fileuri");
+		Uri fileUri = (Uri)intent.getExtras().get("fileuri");
 		
 		int engine = intent.getIntExtra("engine", WEBKIT_CODE);
 
 		FileInputStream fis = null;
 		try {
-			fis = new FileInputStream(fileUri);
+			fis = new FileInputStream(fileUri.getPath());
 		} catch (FileNotFoundException e1) {
 			Log.e("V_A","File not found!");
 		}
@@ -68,13 +65,12 @@ public class ViewerActivity extends Activity {
 			
 		case SVG_ANDROID:
 			SVG1 svg;
-			svg = SVG1Parser.getSVGFromResource(getResources(), R.raw.android);
-			/*try {
-				//SVG1Parser.getSVGFromString(fileContent.toString());
+			try {
+				svg = SVG1Parser.getSVGFromString(fileContent.toString());
 			} catch(SVG1ParseException e) {
 				Log.e("SVG1-P","Cannot parse SVG file!");
 				break;
-			}*/
+			}
 
 	        ImageView imageView = new ImageView(this);
 			imageView.setLayoutParams(svgLayout.getLayoutParams());
@@ -90,10 +86,10 @@ public class ViewerActivity extends Activity {
 			break;
 			
 		case SVG_ANDROID_2:
-			SVG svg2;
+			com.larvalabs.svgandroid.SVG svg2;
 			try {
-				svg2 = SVGParser.getSVGFromResource(getResources(), R.raw.android); // getSVGFromString(fileContent.toString());
-			} catch(SVGParseException e) {
+				svg2 = com.larvalabs.svgandroid.SVGParser.getSVGFromString(fileContent.toString()); // SVGParser.getSVGFromResource(getResources(), R.raw.android); 
+			} catch(com.larvalabs.svgandroid.SVGParseException e) {
 				Log.e("SVG-P","Cannot parse SVG file!");
 				break;
 			}
@@ -109,6 +105,15 @@ public class ViewerActivity extends Activity {
 			imageView2.setLayoutParams(svgLayout.getLayoutParams());
 
 			svgLayout.addView(imageView2);
+			break;
+			
+
+		case ANDROID_SVG:
+
+	        SVGImageView svgImageView = new SVGImageView(this);
+	        svgImageView.setImageURI(fileUri);
+	        svgLayout.addView(svgImageView,svgLayout.getLayoutParams());
+
 			break;
 		default:
 

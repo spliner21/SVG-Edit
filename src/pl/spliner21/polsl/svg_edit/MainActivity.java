@@ -1,5 +1,6 @@
 package pl.spliner21.polsl.svg_edit;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -81,10 +82,11 @@ public class MainActivity extends Activity {
 		    case PICKFILE_RESULT_CODE:
 		        if (resultCode == RESULT_OK) {
 		            String FilePath = data.getData().getPath();
+		            Uri FileUri = data.getData();
 		            //FilePath is your file as a string
 		
 					Intent viewIntent = new Intent(getApplicationContext(),ViewerActivity.class);
-					viewIntent.putExtra("fileuri",FilePath);
+					viewIntent.putExtra("fileuri", FileUri);
 					viewIntent.putExtra("engine",engine);
 					startActivityForResult(viewIntent,VIEWER_CODE);
 		
