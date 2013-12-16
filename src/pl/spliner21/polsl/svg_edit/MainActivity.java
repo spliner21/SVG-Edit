@@ -81,7 +81,6 @@ public class MainActivity extends Activity {
 	    switch (requestCode) {
 		    case PICKFILE_RESULT_CODE:
 		        if (resultCode == RESULT_OK) {
-		            String FilePath = data.getData().getPath();
 		            Uri FileUri = data.getData();
 		            //FilePath is your file as a string
 		

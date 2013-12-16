@@ -7,12 +7,15 @@ import java.io.IOException;
 import com.larvalabs.svgandroid.*;
 import com.caverock.androidsvg.*;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -28,6 +31,7 @@ public class ViewerActivity extends Activity {
 	static final int ANDROID_SVG = 330;
 	
 	/** Called when the activity is first created. */
+	@SuppressLint({ "NewApi", "InlinedApi" })
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -46,33 +50,25 @@ public class ViewerActivity extends Activity {
 		} catch (FileNotFoundException e1) {
 			Log.e("V_A","File not found!");
 		}
-		
-		StringBuffer fileContent = new StringBuffer("");
-
-		byte[] buffer = new byte[1024];
-
-		try {
-			while (fis.read(buffer) != -1) {
-			    fileContent.append(new String(buffer));
-			}
-		} catch (IOException e) {
-			Log.e("V_A","Input-Output Exception!");
-		}	
 
 		FrameLayout svgLayout = (FrameLayout)findViewById(R.id.svgViewer);
 		
 		switch(engine){
 			
 		case SVG_ANDROID:
-			SVG1 svg;
+			SVG1 svg = null;
 			try {
-				svg = SVG1Parser.getSVGFromString(fileContent.toString());
+				svg = SVG1Parser.getSVGFromInputStream(fis);
 			} catch(SVG1ParseException e) {
 				Log.e("SVG1-P","Cannot parse SVG file!");
 				break;
 			}
 
 	        ImageView imageView = new ImageView(this);
+	        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	            // Disable hardware acceleration
+	            imageView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+	        }
 			imageView.setLayoutParams(svgLayout.getLayoutParams());
 	        // Set the background color to white
 	        imageView.setBackgroundColor(Color.WHITE);
@@ -88,13 +84,17 @@ public class ViewerActivity extends Activity {
 		case SVG_ANDROID_2:
 			com.larvalabs.svgandroid.SVG svg2;
 			try {
-				svg2 = com.larvalabs.svgandroid.SVGParser.getSVGFromString(fileContent.toString()); // SVGParser.getSVGFromResource(getResources(), R.raw.android); 
+				svg2 = com.larvalabs.svgandroid.SVGParser.getSVGFromInputStream(fis);	// TU i w v1 by³ problem z getSVGFromString - nie wiadomo czemu :D
 			} catch(com.larvalabs.svgandroid.SVGParseException e) {
 				Log.e("SVG-P","Cannot parse SVG file!");
 				break;
-			}
+			} 
 
 	        ImageView imageView2 = new ImageView(this);
+	        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	            // Disable hardware acceleration
+	            imageView2.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+	        }
 	        // Set the background color to white
 	        imageView2.setBackgroundColor(Color.WHITE);
 	        // Parse the SVG file from the resource
@@ -116,6 +116,18 @@ public class ViewerActivity extends Activity {
 
 			break;
 		default:
+			
+			StringBuffer fileContent = new StringBuffer("");
+
+			byte[] buffer = new byte[1024];
+
+			try {
+				while (fis.read(buffer) != -1) {
+				    fileContent.append(new String(buffer));
+				}
+			} catch (IOException e) {
+				Log.e("V_A","Input-Output Exception!");
+			}	
 
 			
 			WebView webview = new WebView(this);

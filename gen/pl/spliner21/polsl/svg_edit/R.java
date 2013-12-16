@@ -50,22 +50,22 @@ public final class R {
     }
     public static final class raw {
         public static final int android=0x7f040000;
-        public static final int gradients=0x7f040001;
     }
     public static final class string {
-        public static final int action_settings=0x7f060001;
-        public static final int andsvg=0x7f06000c;
+        public static final int action_settings=0x7f060002;
+        public static final int andsvg=0x7f06000d;
         public static final int app_name=0x7f060000;
-        public static final int choose_engine=0x7f060008;
-        public static final int close=0x7f060006;
-        public static final int hello_world=0x7f060002;
-        public static final int new_file=0x7f060003;
-        public static final int open_file=0x7f060004;
-        public static final int options=0x7f060005;
-        public static final int save=0x7f060007;
-        public static final int svgand=0x7f06000a;
-        public static final int svgand2=0x7f06000b;
-        public static final int webkit=0x7f060009;
+        public static final int app_ver_name=0x7f060001;
+        public static final int choose_engine=0x7f060009;
+        public static final int close=0x7f060007;
+        public static final int hello_world=0x7f060003;
+        public static final int new_file=0x7f060004;
+        public static final int open_file=0x7f060005;
+        public static final int options=0x7f060006;
+        public static final int save=0x7f060008;
+        public static final int svgand=0x7f06000b;
+        public static final int svgand2=0x7f06000c;
+        public static final int webkit=0x7f06000a;
     }
     public static final class style {
         /** 
