@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">SVG-Edit</string>
-    <string name="app_ver_name">SVG-Edit v0.3 alpha (M1)</string>
+    <string name="app_ver_name">SVG-Edit v0.5 beta (M2)</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="new_file">Nowy plik</string>
@@ -17,5 +17,6 @@
     <string name="svgand">SVG-Android</string>
     <string name="svgand2">SVG-Android 2 (enhanced)</string>
     <string name="andsvg">AndroidSVG</string>
+    <string name="tpsvg">TP SVG</string>
 
 </resources>

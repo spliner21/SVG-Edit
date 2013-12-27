@@ -16,6 +16,7 @@ public class OptionsActivity extends Activity {
 	static final int SVG_ANDROID = 310;
 	static final int SVG_ANDROID_2 = 320;
 	static final int ANDROID_SVG = 330;
+	static final int TPSVG_CODE = 340;
 	
     int engine = WEBKIT_CODE;
 	
@@ -31,6 +32,7 @@ public class OptionsActivity extends Activity {
 	    final RadioButton svgand = (RadioButton)findViewById(R.id.svgand);
 	    final RadioButton svgand2 = (RadioButton)findViewById(R.id.svgand2);
 	    final RadioButton andsvg = (RadioButton)findViewById(R.id.andsvg);
+	    final RadioButton tpsvg = (RadioButton)findViewById(R.id.tpsvg);
 	    
 	    final Button saver = (Button)findViewById(R.id.optsavebtn);
 	    
@@ -54,6 +56,9 @@ public class OptionsActivity extends Activity {
 	    case ANDROID_SVG:
 	    	andsvg.setChecked(true);
 		    break;
+	    case TPSVG_CODE:
+	    	tpsvg.setChecked(true);
+		    break;
 		default:
 		    break;
 	    }
@@ -68,6 +73,7 @@ public class OptionsActivity extends Activity {
 				    svgand.setChecked(false);
 				    svgand2.setChecked(false);
 				    andsvg.setChecked(false);
+				    tpsvg.setChecked(false);
 				}
 			}
 		});
@@ -81,6 +87,7 @@ public class OptionsActivity extends Activity {
 				    webkit.setChecked(false);
 				    svgand2.setChecked(false);
 				    andsvg.setChecked(false);
+				    tpsvg.setChecked(false);
 				}
 			}
 		});
@@ -94,6 +101,7 @@ public class OptionsActivity extends Activity {
 				    webkit.setChecked(false);
 				    svgand.setChecked(false);
 				    andsvg.setChecked(false);
+				    tpsvg.setChecked(false);
 				}
 			}
 		});
@@ -107,6 +115,21 @@ public class OptionsActivity extends Activity {
 				    webkit.setChecked(false);
 				    svgand2.setChecked(false);
 				    svgand.setChecked(false);
+				    tpsvg.setChecked(false);
+				}
+			}
+		});
+	    tpsvg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				// TODO Auto-generated method stub
+				if(isChecked) {
+				    engine = TPSVG_CODE;
+				    webkit.setChecked(false);
+				    svgand2.setChecked(false);
+				    svgand.setChecked(false);
+				    andsvg.setChecked(false);
 				}
 			}
 		});

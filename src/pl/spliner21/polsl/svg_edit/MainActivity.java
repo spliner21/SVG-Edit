@@ -23,6 +23,7 @@ public class MainActivity extends Activity {
 	static final int SVG_ANDROID = 310;
 	static final int SVG_ANDROID_2 = 320;
 	static final int ANDROID_SVG = 330;
+	static final int TPSVG_CODE = 340;
 	
 	int engine = WEBKIT_CODE;
 	

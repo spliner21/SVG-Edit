@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.larvalabs.svgandroid.*;
+import com.trevorpage.tpsvg.SVGDrawable;
+import com.trevorpage.tpsvg.SVGParserRenderer;
 import com.caverock.androidsvg.*;
 
 import android.annotation.SuppressLint;
@@ -29,6 +31,7 @@ public class ViewerActivity extends Activity {
 	static final int SVG_ANDROID = 310;
 	static final int SVG_ANDROID_2 = 320;
 	static final int ANDROID_SVG = 330;
+	static final int TPSVG_CODE = 340;
 	
 	/** Called when the activity is first created. */
 	@SuppressLint({ "NewApi", "InlinedApi" })
@@ -115,6 +118,16 @@ public class ViewerActivity extends Activity {
 	        svgLayout.addView(svgImageView,svgLayout.getLayoutParams());
 
 			break;
+			
+
+		case TPSVG_CODE:
+	        SVGDrawable svgd = new SVGDrawable(new SVGParserRenderer(getApplicationContext(),fis));
+	        ImageView svgImgView = new ImageView(this);
+	        svgImgView.setImageDrawable(svgd.getCurrent());
+	        svgLayout.addView(svgImgView,svgLayout.getLayoutParams());
+
+			break;
+			
 		default:
 			
 			StringBuffer fileContent = new StringBuffer("");
