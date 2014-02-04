@@ -23,6 +23,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class ViewerActivity extends Activity {
 
@@ -55,7 +56,7 @@ public class ViewerActivity extends Activity {
 		}
 
 		FrameLayout svgLayout = (FrameLayout)findViewById(R.id.svgViewer);
-		
+		long time = System.currentTimeMillis();
 		switch(engine){
 			
 		case SVG_ANDROID:
@@ -163,8 +164,9 @@ public class ViewerActivity extends Activity {
 			
 			*/
 		}
+		time = System.currentTimeMillis() - time;
 		
-		
+		Toast.makeText(getApplicationContext(), "Czas wygenerowania: "+time+"ms", Toast.LENGTH_LONG).show();
 	}
 
 }
